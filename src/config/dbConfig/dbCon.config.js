@@ -27,6 +27,7 @@ const dbConnection = (method, url, data) => {
             url: `https://${ASTRA_DB_ID}-${ASTRA_DB_REGION}.apps.astra.datastax.com/api/rest/v2/keyspaces/${ASTRA_DB_KEYSPACE}/` + url, data,
         };
 
+        console.log("configObjJJJJJJJJJJJJ", configObj);
 
         logger.info('Database connected successfully')
         return configObj;

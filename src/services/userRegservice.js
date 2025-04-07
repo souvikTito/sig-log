@@ -6,6 +6,8 @@ const axios = require('axios');
 // import database connection configuration
 const dbConnection = require('../config/dbConfig/dbCon.config');
 
+// // Import winston logger middleware
+// const { logger } = require('../middleware/winston.middleware');
 
 
 // Import JWT utilities for JSON web tokens
@@ -33,52 +35,43 @@ const successHandlingMiddleware = require('../middleware/successHandler.middlewa
 
 
 
-
+// Async function to save user details
 async function saveUserDetails(req, res, next) {
-
     try {
-        // extract user data from the request body
+        // Extract user data from the request body
         const userData = {
-            email: req.body.email.toLowerCase(),
-            fulname: req.body.fulname,
+            email: req.body.email?.toLowerCase(),  // optional chaining for safety
+            fullname: req.body.fullname,           // fixed typo from 'fulname'
             password: req.body.password,
-            accaunt: req.body.accaunt
+            account: req.body.account              // fixed typo from 'accaunt'
         };
 
-        userData.id = randomUUID()
+        userData.id = randomUUID();
 
-        const isUserExist = await axios.request(dbConnection("GET", `registrations/${userData.email}`, ""));
+        console.log("Saving user data", userData);
 
+        // Make an HTTP POST request using axios
+        const response = await axios.request(
+            dbConnection("POST", "registrationa", userData)
+        );
 
-
-        if (isUserExist.data.data.length) {
-
-            // Send a success response with status 201 and a message
-            return errorHandlingMiddleware("User already exits", 409, "", res)
-
-        }
-
-
-
-        // Make an HTTP POST request to view user details using axios
-        const response = await axios.request(dbConnection("POST", "registrations", userData))
-
+        console.log("Response", response.data);
 
         // Log that user details were saved successfully
-        logger.info('user details saved successfully');
+        logger.info("User details saved successfully");
 
-        // Send a success response with status 201 and a message
-        successHandlingMiddleware("User details saved successfully", "", 201, res)
-
-
+        // Send a success response
+        successHandlingMiddleware(
+            "User details saved successfully",
+            response.data,     // fix: pass `response.data` instead of full response object
+            201,
+            res
+        );
     } catch (error) {
-
-        // Handle errors using the errorHandlingMiddleware function
-        return errorHandlingMiddleware(error.message, 500, "", res)
-
+        // Handle errors properly
+        return errorHandlingMiddleware(error.message, 500, "", res);
     }
 }
-
 
 
 async function login(req, res, next) {
