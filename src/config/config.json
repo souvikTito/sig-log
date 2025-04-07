@@ -1,0 +1,6 @@
+{
+    "rate_limit_ms": "15 * 60 * 1000",
+    "rate_limit_max": "100",
+    "jwtTokenExpiresIn": "36000",
+    "bcryptSaltRounds": 10
+}

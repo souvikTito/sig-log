@@ -1,0 +1,43 @@
+{
+  "name": "usermanagement-crud-operations-node-modules",
+  "version": "1.0.0",
+  "description": "This is user management microserivce with the node modules. This microservice is used for managing all the actives related to users.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --production",
+    "start": "node app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "author": "Souvik",
+  "license": "won",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "axios": "^1.6.1",
+    "bcrypt": "5.1.1",
+    "body-parser": "1.20.2",
+    "config": "3.3.9",
+    "cookie-parser": "^1.4.7",
+    "cors": "2.8.5",
+    "crypto": "1.0.1",
+    "dotenv": "16.3.1",
+    "express": "^4.21.2",
+    "express-rate-limit": "6.10.0",
+    "helmet": "7.0.0",
+    "joi": "17.10.1",
+    "jsonwebtoken": "9.0.2",
+    "morgan": "1.10.0",
+    "response-time": "2.3.2",
+    "uuid": "9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.0.1"
+  }
+}
